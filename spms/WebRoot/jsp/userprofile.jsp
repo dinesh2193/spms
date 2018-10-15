@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                </li>
                <%if(emp_details.getPosition().equals("administrator")){ %>
 			    <li class="treeview" >
-                <a href="#">
+                <a href="jsp/registered.jsp" target="myframe">
                 <i class="fa fa-edit"></i><span>Registered employees</span></a>
                </li><%}%>
             </ul>
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<span class="prfil-img"><img src="images/2.jpg" alt=""> </span> 
 									<div class="user-name">
 										<p><%=session.getAttribute("emp_email") %></p>
-										<span>Administrator</span>
+										<span><%=emp_details.getPosition()%></span>
 									</div>
 									<i class="fa fa-angle-down lnr"></i>
 									<i class="fa fa-angle-up lnr"></i>

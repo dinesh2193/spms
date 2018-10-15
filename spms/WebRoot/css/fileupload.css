@@ -131,7 +131,7 @@ h3{
     font-size: 14px;
 	font-weight:700;
 }
-.choose{
+input[type="submit"]{
     width: 54%;
     background:#00BCD4;
     border: none;
@@ -157,7 +157,7 @@ h3{
 	input[type="file"] {
 		left: 20%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 60%;
 		margin-left: 20%;
 	}
@@ -166,7 +166,7 @@ h3{
 	input[type="file"] {
 		left: 18%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 64%;
 		margin-left: 18%;
 	}
@@ -175,7 +175,7 @@ h3{
 	input[type="file"] {
 		left: 15%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 70%;
 		margin-left: 15%;
 	}
@@ -186,7 +186,7 @@ h3{
 		top: 0px;
 		padding: 7px 0px;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 80%;
 		margin-left: 10%;
 	}
@@ -201,7 +201,7 @@ h3{
 	input[type="file"] {
 		left: 10%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 80%;
 		margin-left: 10%;
 	}
@@ -213,7 +213,7 @@ h3{
 	input[type="file"] {
 		left: 11%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 78%;
 		margin-left: 11%;
 	}
@@ -222,7 +222,7 @@ h3{
 	input[type="file"] {
 		left: 10%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 80%;
 		margin-left: 10%;
 	}
@@ -234,7 +234,7 @@ h3{
 	input[type="file"] {
 		left: 12%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 76%;
 		margin-left: 12%;
 	}
@@ -249,7 +249,7 @@ h3{
 	input[type="file"] {
 		left: 10.5%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 79%;
 		margin-left: 10.5%;
 	}
@@ -261,7 +261,7 @@ h3{
 	input[type="file"] {
 		left: 8.5%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 83%;
 		margin-left: 8.5%;
 	}
@@ -278,7 +278,7 @@ h3{
 	input[type="file"] {
 		left: 8%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 84%;
 		margin-left: 8%;
 	}
@@ -290,7 +290,7 @@ h3{
 	input[type="file"] {
 		left: 10.5%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 79%;
 		margin-left: 10.5%;
 	}
@@ -305,7 +305,7 @@ h3{
 	input[type="file"] {
 		left: 9.5%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 81%;
 		margin-left: 9.5%;
 	}
@@ -318,7 +318,7 @@ h3{
 	input[type="file"] {
 		left: 10%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 80%;
 		margin-left: 10%;
 	}
@@ -334,7 +334,7 @@ h3{
 	input[type="file"] {
 		left: 9%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 82%;
 		margin-left: 9%;
 	}
@@ -352,7 +352,7 @@ h3{
 	input[type="file"] {
 		left: 8%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 84%;
 		margin-left: 8%;
 	}
@@ -376,7 +376,7 @@ h3{
 	input[type="file"] {
 		left: 6%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 88%;
 		margin-left: 6%;
 	}
@@ -386,7 +386,7 @@ h3{
 	input[type="file"] {
 		left: 5%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 90%;
 		margin-left: 5%;
 	}
@@ -405,7 +405,7 @@ h3{
 	input[type="file"] {
 		left: -1%;
 	}
-	.choose {
+	input[type="submit"] {
 		width: 102%;
 		margin-left: 0%;
 	}
