@@ -70,20 +70,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </a>
               </li>
              <li class="treeview">
-                <a href="jsp/profile.jsp">
+                <a href="jsp/editprofile.jsp" target="myframe">
                 <i class="fa fa-user circle"></i> <span>Profile</span>
                 </a>
               </li>
 			  <li class="treeview">
-                <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Attendance</span>
-                <i class="fa fa-angle-left pull-right"></i>
+                <a href="jsp/attendance.jsp" target="myframe">
+                <i class="fa fa-pie-chart"></i><span>Attendance</span>
                 </a>
-                <ul class="treeview-menu">
-                  <li><a href="grids.html"><i class="fa fa-angle-right"></i>view attendance</a></li>
-                  <li><a href="media.html"><i class="fa fa-angle-right"></i>respond your roll call</a></li>
-                </ul>
               </li>
 			    <li class="treeview">
                 <a href="#">
@@ -109,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="grids.html"><i class="fa fa-angle-right"></i>Running Projects</a></li>
-                  <li><a href="jsp/pastprojects.jsp"><i class="fa fa-angle-right"></i> Past Projects</a></li>
+                  <li><a href="jsp/pastprojects.jsp" target="myframe"><i class="fa fa-angle-right"></i> Past Projects</a></li>
                 </ul>
               </li>
 			    <li class="treeview">
@@ -160,8 +154,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	  <!--main content -->
 	  <div id="page-wrapper">
-	    <div class="main-page" style="margin:4% 0% 0% 1%;height:100%">
-	    	<iframe width="100%" height="93%"scrolling="auto" src="jsp/login.jsp"></iframe>
+	    <div class="main-page" style="margin:5% 0% 0% 1%;">
+	    	<iframe name="myframe" width="100%" height="93%"scrolling="auto" src="jsp/frame.jsp"></iframe>
 		</div></div>
 	  </div>
 	  
