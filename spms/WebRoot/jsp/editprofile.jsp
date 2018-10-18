@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="w3l-date">
 						<label class="head">Date of Birth<span class="w3l-star"> * </span></label>
 							<div class="styled-input">
-								<input class="date" id="datepicker" name="dob" type="text" <%if(emp_details.getDob().equals("null")){ %>value="DD/MM/YYYY"<%}else{ %>value="<%=emp_details.getDob()%>"<%}%> onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YYYY';}" required="">
+								<input class="date" id="datepicker" name="dob" type="text" <%if(emp_details.getDob()==null){%>value="DD/MM/YYYY"<%}else{ %>value="<%=emp_details.getDob()%>"<%}%> onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'DD/MM/YYYY';}" required="">
 							</div>
 						</div>	
 				<div class="clear"></div>

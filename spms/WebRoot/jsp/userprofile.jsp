@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="grids.html"><i class="fa fa-angle-right"></i>Upload Documents</a></li>
+                  <li><a href="jsp/fileupload.jsp" target="myframe"><i class="fa fa-angle-right"></i>Upload Documents</a></li>
                   <li><a href="media.html"><i class="fa fa-angle-right"></i>View documents</a></li>
                 </ul>
               </li>
@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <!--main content -->
 	  <div id="page-wrapper">
 	    <div class="main-page" style="margin:5% 0% 0% 1%;">
-	    	<iframe name="myframe" width="100%" height="93%"scrolling="auto" src="jsp/frame.jsp"></iframe>
+	    	<iframe name="myframe" width="100%" height="93%"scrolling="auto" src="jsp/home.jsp"></iframe>
 		</div></div>
 	  </div>
 	  

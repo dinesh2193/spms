@@ -134,7 +134,8 @@ public class LoginDao {
 				emp_details.setEmail(rs.getString(3));
 				emp_details.setMobile(rs.getString(4));
 				emp_details.setDob(rs.getString(5));
-				
+				System.out.println(emp_details.getDob());
+				if(emp_details.getDob()!=null){
 				emp_details.setDob(DateConvert.convert_date("yyyy-mm-dd", "dd-mm-yyyy",emp_details.getDob()));
 				
 				String d=emp_details.getDob();
@@ -152,6 +153,7 @@ public class LoginDao {
 				d=d.replaceAll("-11-","-nov-");
 				d=d.replaceAll("-12-","-dec-");
 				emp_details.setDob(d);
+				}
 				
 				
 				emp_details.setGender(rs.getString(6));
