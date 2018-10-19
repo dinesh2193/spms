@@ -150,6 +150,7 @@ public class Verify extends HttpServlet {
 			session.setAttribute("emp_email", emp.getEmail());
 			session.setAttribute("emp_pswd", emp.getPswd());
 			
+			session.setAttribute("emp_details",LoginDao.get_empdetails_table(emp));
 			response.sendRedirect("jsp/userprofile.jsp");
 		}
 		else

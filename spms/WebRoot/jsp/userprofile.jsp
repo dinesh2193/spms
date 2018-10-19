@@ -1,14 +1,15 @@
+<%@page import="objects.EmpDetails"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
-    
+  	<%EmpDetails emp_details = (EmpDetails)session.getAttribute("emp_details");%>  
+  	<%-- <%System.out.println(emp_details.toString()); %> --%>
     <title>userprofile</title>
     
 	<meta http-equiv="pragma" content="no-cache">
@@ -52,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 		<!--left-fixed -navigation-->
 		<aside class="sidebar-left">
-      <nav class="navbar navbar-inverse">
+      	<nav class="navbar navbar-inverse">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -92,8 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </li>
 			    <li class="treeview">
                 <a href="#">
-                <i class="fa fa-inr"></i><span>Payroll</span>
-</a>				
+                <i class="fa fa-inr"></i><span>Payroll</span></a>				
               </li>
 			    <li class="treeview">
                 <a href="#">
@@ -106,11 +106,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <li><a href="jsp/pastprojects.jsp" target="myframe"><i class="fa fa-angle-right"></i> Past Projects</a></li>
                 </ul>
               </li>
+              
 			    <li class="treeview">
                 <a href="#">
-                <i class="fa fa-calendar-check-o"></i><span>Schedule</span>
+                <i class="fa fa-calendar-check-o"></i><span>Schedule</span></a>
                </li>
-			    
+               <%if(emp_details.getPosition().equals("administrator")){ %>
+			    <li class="treeview" >
+                <a href="#">
+                <i class="fa fa-edit"></i><span>Registered employees</span></a>
+               </li><%}%>
             </ul>
           </div>
           <!-- /.navbar-collapse -->

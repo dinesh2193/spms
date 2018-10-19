@@ -6,15 +6,10 @@ function isNumberKey(evt)
     return true;
 }
 
-function validate_login()
-{
-	return true;
-}
-
 function validate_editprofile()
 {
 	//gender validation
-	
+	return true;
 	var gender=$("#gender").val();
 	if(gender=="select_gender")
 		{
@@ -34,24 +29,6 @@ function validate_editprofile()
 	    return false;
 	}
       
-    //password and confirm password validation
-	var pswd,c_pswd;
-	pswd=$("#password").val();
-	c_pswd=$("#c_password").val();
-	if(pswd!=c_pswd)
-		{
-			alert("Password and Confirm passwords are not same");
-			$("#c_password").focus();
-			return false;
-		}
-	
-	//position validation
-	var pos=$("#position").val();
-	if(pos=="select_position")
-		{
-			alert("Select any position");
-			$("#position").focus();
-			return false;
-		}
+   
 	return true;
 }
