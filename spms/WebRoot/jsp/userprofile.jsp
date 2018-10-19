@@ -75,6 +75,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <i class="fa fa-user circle"></i> <span>Profile</span>
                 </a>
               </li>
+              <li class="treeview">
+                <a href="jsp/uploadphoto.jsp" target="myframe">
+                <i class="fa fa-picture-o"></i> <span>Upload Photo</span>
+                </a>
+              </li>
 			  <li class="treeview">
                 <a href="jsp/attendance.jsp" target="myframe">
                 <i class="fa fa-pie-chart"></i><span>Attendance</span>

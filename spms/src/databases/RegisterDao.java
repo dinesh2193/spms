@@ -109,6 +109,30 @@ public class RegisterDao {
 		
 	}
 	
+public static void insert_to_photo_table(String email) {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+			
+			sql="insert into photo_table(email) values (?)";
+			
+			PreparedStatement stmt=con.prepareStatement(sql);
+			
+			stmt.setString(1,email);
+			stmt.executeUpdate();
+			
+			stmt.close();
+			con.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 	public static void delete_from_reg_table(String email) {
 		
 		try {

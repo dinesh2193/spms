@@ -123,9 +123,11 @@ background-color:black;}
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="script3.js"></script>
-<script src="script4.js"></script>
-<script src="script5.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js "></script>
+
 <script type="text/javascript">
 
  $(function(){
@@ -178,7 +180,7 @@ $(document).ready(function() {
 	<div id="tbl">
 								<thead id="hd">
 									<tr>
-									  <th>#</th>
+									  <th>S.no</th>
 									  <th>Username</th>
 									  <th>EMail Id</th>
 									  <th>Contact</th>

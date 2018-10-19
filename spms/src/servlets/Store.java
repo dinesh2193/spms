@@ -30,6 +30,7 @@ public class Store extends HttpServlet {
 				{
 					RegisterDao.insert_to_login_table(o);
 					RegisterDao.insert_to_empdetails_table(o);
+					RegisterDao.insert_to_photo_table(o.getEmail());
 					RegisterDao.delete_from_reg_table(o.getEmail());
 				}
 				else if(request.getParameter(o.getEmail()).toString().equals("deny"))

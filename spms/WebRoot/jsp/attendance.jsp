@@ -217,9 +217,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    cursor: pointer;
 		}
 	</style>
+	
   </head>
   
-  <body>
+  <body id="graph">
     <div class="blue-square-container">
 	<button id="myBtn" class="button1">check in</button>
 	<button id="heyy" class="button2">view attendance</button>
@@ -232,7 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="tbl">
 								<thead id="hd">
 									<tr>
-									  <th>#</th>
+									  <th>S.no</th>
 									  <th>Date</th>
 									  <th>Check in time</th>
 									  <th>Check out time</th>
@@ -404,7 +405,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     						</tbody>
 							<tfoot>
 	            <tr>
-	                <th>#</th>
+	                <th>S.no</th>
 	                <th>Date</th>
 				    <th>Check in time</th>
 					<th>Check out time</th>				
@@ -502,6 +503,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 
 	
 	</script>			
- 
+ 	<script type="text/javascript">
+		$(document).ready(function()
+		 {
+			$('#heyy').click(function(){
+			$('#erase').hide();
+			$('#erase').show(1000);
+			});
+			$('#erase').hide();
+			$('#graph').hide();
+			$('#graph').show(1000);
+			$('#heyy').click(
+			function()
+			{
+			 $('#erase').show(1000);
+			});
+		    $('#example').DataTable();
+		} );
+	
+	</script>
   </body>
 </html>
