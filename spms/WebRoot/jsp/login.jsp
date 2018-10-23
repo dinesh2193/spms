@@ -61,16 +61,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <div class="resp-tabs-container">
                   <div class="tab-1 resp-tab-content">
                      <div class="swm-right-w3ls">
-                        <form action="" method="post">
+                        <form action="Verify" method="get">
                            <div class="main">
                               <div class="icon-head-wthree">
                                  <h2>Login Here</h2>
                               </div>
                               <div class="form-left-w3l">
-                                 <input type="email" name="email" placeholder="Email" required="">
+                                 <input type="email" name="email_login" placeholder="Email" required="">
                               </div>
                               <div class="form-right-w3ls ">
-                                 <input type="password" name="password" placeholder="Password" required="">
+                                 <input type="password" name="password_login" placeholder="Password" required="">
                               </div>
                               <div class="btnn">
                                  <button type="submit" onclick="return validate_login()">LogIn</button><br>
