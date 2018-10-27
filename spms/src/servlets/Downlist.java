@@ -19,9 +19,9 @@ public class Downlist extends HttpServlet {
 
 		String e_id=request.getParameter("e_id");
 		
-		ArrayList<String> l = EmpDetailsDao.get_downline(e_id);
 		
-		request.setAttribute("downline",l);
+		
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("jsp/presentprojects.jsp");
 		rd.forward(request, response);

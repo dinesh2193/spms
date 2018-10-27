@@ -31,8 +31,11 @@ public class Store extends HttpServlet {
 					RegisterDao.insert_to_login_table(o);
 					RegisterDao.insert_to_empdetails_table(o);
 					RegisterDao.insert_to_photo_table(o.getEmail());
-					//RegisterDao.insert_to_hierarchy_table(o.getEmail(),o.getPos(),request.getParameter(o.getEmail()+"par"));
+					System.out.println(request.getParameter("upline"));
+					String name1=o.getF_name()+" "+o.getL_name();
+					RegisterDao.insert_to_hierarchy_table(o.getEmail(),o.getPos(),request.getParameter("upline"), name1);
 					RegisterDao.delete_from_reg_table(o.getEmail());
+					
 				}
 				else if(request.getParameter(o.getEmail()).toString().equals("deny"))
 				{

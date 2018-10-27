@@ -8,7 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import methods.DateConvert;
+import objects.DataUpline;
 import objects.EmpDetails;
+import objects.EmpPar;
 import objects.EmployeeObj;
 
 public class EmpDetailsDao {
@@ -50,28 +52,83 @@ public static int insert_to_reg_table(EmpDetails obj) {
 		
 	}
 
-public static  ArrayList<String> get_downline(String e_id)
-{
+public static int delete_from_reg_table(String e_id) {
 	
-	ArrayList<String> l=new ArrayList<String>();
 	try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		
 		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 		
-		String sql="select e_id from hierarchy_table where par_id=?";
+		String sql="update empdetails_table set view_flag=0 where EMAIL=?";
+		
+		PreparedStatement stmt=con.prepareStatement(sql);
+		
+		/*System.out.println(sql);*/
+		stmt.setString(1,e_id);
+		
+		if(stmt.executeUpdate()>0)
+		{
+			return 1;
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return 0;
+	
+}
+
+public static int delete_from_hierarchy_table(String e_id) {
+	
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+		
+		String sql="update hierarchy_table set view_flag=0 where emp_id=?";
+		
+		PreparedStatement stmt=con.prepareStatement(sql);
+		
+		/*System.out.println(sql);*/
+		stmt.setString(1,e_id);
+		
+		if(stmt.executeUpdate()>0)
+		{
+			return 1;
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return 0;
+	
+}
+
+public static  ArrayList<EmpPar> get_downline(String e_id)
+{
+	
+	ArrayList<EmpPar> l=new ArrayList<EmpPar>();
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+		
+		String sql="select emp_id,emp_name from hierarchy_table where par_id=? and view_flag = 1";
 		
 		PreparedStatement stmt=con.prepareStatement(sql);
 		
 		stmt.setString(1,e_id);
-		ResultSet rs = stmt.executeQuery(sql);
-		
+		ResultSet rs = stmt.executeQuery();
+		//System.out.println("entered "+e_id);
 		
 		
 		while(rs.next())
 		{
-		
-			l.add(rs.getString(1));
+			EmpPar o = new EmpPar();
+			o.setE_name(rs.getString(1));
+			
+			o.setP_name(rs.getString(2));
+			l.add(o);
 	
 		}
 		rs.close();
@@ -92,18 +149,18 @@ public static  ArrayList<String> get_all_downline(String e_id)
 		
 		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 		
-		String sql="WITH EXPL (par_id, EMP_ID, EMP_NAME) AS (SELECT ROOT.par_id, ROOT.EMP_ID, ROOT.EMP_NAME FROM   HIERARCHY_TABLE   ROOT WHERE  ROOT.par_id = ? UNION ALL SELECT CHILD.par_id, CHILD.EMP_ID, CHILD.EMP_NAME FROM EXPL PARENT, HIERARCHY_TABLE CHILD WHERE  PARENT.EMP_ID = CHILD.par_id ) SELECT  DISTINCT  EMP_ID FROM EXPL ORDER BY  EMP_ID";
+		String sql="WITH EXPL (par_id, EMP_ID, EMP_NAME,view_flag) AS (SELECT ROOT.par_id, ROOT.EMP_ID, ROOT.EMP_NAME,root.view_flag FROM   HIERARCHY_TABLE   ROOT WHERE  ROOT.par_id = ? UNION ALL SELECT CHILD.par_id, CHILD.EMP_ID, CHILD.EMP_NAME,child.view_flag FROM EXPL PARENT, HIERARCHY_TABLE CHILD WHERE  PARENT.EMP_ID = CHILD.par_id ) SELECT  DISTINCT  EMP_ID FROM EXPL where view_flag=1 ORDER BY  EMP_ID";
 		
 		PreparedStatement stmt=con.prepareStatement(sql);
 		
 		stmt.setString(1,e_id);
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery();
 		
 		
-		
+		//System.out.println("hi");
 		while(rs.next())
 		{
-		
+		   // System.out.println(rs.getString(1));
 			l.add(rs.getString(1));
 	
 		}
@@ -194,4 +251,76 @@ public static  ArrayList<EmpDetails> get_all_downline_details(ArrayList<String> 
 	}
 	return obj;
 }
+
+public static  String get_upline(String e_id)
+{
+	
+	
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+		
+		String sql="select f.emp_name from Hierarchy_table e,Hierarchy_table f where e.par_id=f.emp_id and e.emp_id=? and e.view_flag=1";
+		
+		PreparedStatement stmt=con.prepareStatement(sql);
+		
+		stmt.setString(1,e_id);
+		ResultSet rs = stmt.executeQuery();
+		
+		
+		
+		if(rs.next())
+		{
+		
+			return rs.getString(1);
+	
+		}
+		rs.close();
+		con.close();
+	
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return " ";
+}
+public static  ArrayList<DataUpline> get_data_upline(String pos)
+{
+	
+	ArrayList<DataUpline> l=new ArrayList<DataUpline>();
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+		
+		String sql=" select f_name,l_name,email from empdetails_table where pos=? and view_flag=1";
+		
+		PreparedStatement stmt=con.prepareStatement(sql);
+		
+		stmt.setString(1,pos);
+		ResultSet rs = stmt.executeQuery();
+		
+		
+		
+		while(rs.next())
+		{
+		
+			DataUpline u = new DataUpline();
+			u.setEmail(rs.getString(3));
+			u.setF_name(rs.getString(1));
+			u.setL_name(rs.getString(2));
+			l.add(u);
+	
+		}
+		rs.close();
+		con.close();
+	
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return l;
+}
+
 }

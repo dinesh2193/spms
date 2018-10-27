@@ -1,3 +1,5 @@
+<%@page import="databases.EmpDetailsDao"%>
+<%@page import="objects.DataUpline"%>
 <%@page import="databases.RegisterDao"%>
 <%@page import="objects.EmployeeObj"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
@@ -234,10 +236,34 @@ $(document).ready(function() {
 	  <label for="<%=o.getEmail()+"b"%>">Deny</label><br>
 	  <div id="<%=o.getMobile()%>"  style="display:none" >
 	  <span class="cl">Appoint under : </span>
-	  <select>
-	  <option>op1</option>
-	  <option>op1</option>
-	  <option>op1</option>
+	  <select name="upline">
+	  <option value="select">--select upline--</option>
+	  <%if(o.getPos().equals("software_employee")){
+	  ArrayList<DataUpline> d = EmpDetailsDao.get_data_upline("team_leader");
+	  for(int k=0;k<d.size();k++){ DataUpline u = d.get(k);
+	   %>
+	  
+	  <option value="<%=u.getEmail()%>"><%=u.getF_name()+" "+u.getL_name() %></option>
+	  <%}
+	   }
+	   else if(o.getPos().equals("team_leader")){
+	  ArrayList<DataUpline> d = EmpDetailsDao.get_data_upline("project_manager");
+	 
+	  for(int k=0;k<d.size();k++){ DataUpline u = d.get(k);
+	  %>
+	  <option value="<%=u.getEmail()%>"><%=u.getF_name()+" "+u.getL_name() %></option>
+	  <%} } else if(o.getPos().equals("project_manager")){
+	 
+	   ArrayList<DataUpline> d = EmpDetailsDao.get_data_upline("administrator");
+	  for(int k=0;k<d.size();k++){ DataUpline u = d.get(k);
+	  %>
+	  <option value="<%=u.getEmail()%>"><%=u.getF_name()+" "+u.getL_name() %></option>
+	  <%} } else if(o.getPos().equals("admin")){
+	   ArrayList<DataUpline> d = EmpDetailsDao.get_data_upline("administrator");
+	  for(int k=0;k<d.size();k++){ DataUpline u = d.get(k);
+	  %>
+	   <option value="<%=u.getEmail()%>"><%=u.getF_name()+" "+u.getL_name() %></option>
+	   <%} }%>
 	  </select>
 	  </div>
 	  

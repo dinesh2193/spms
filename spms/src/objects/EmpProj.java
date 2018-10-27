@@ -2,6 +2,9 @@ package objects;
 
 public class EmpProj {
 	private String p_name;
+	private String emp_id;
+	private String emp_name;
+	private String pos;
 	private String module;
 	private String p_status;
 	private String m_status;
@@ -10,6 +13,24 @@ public class EmpProj {
 	}
 	public void setP_name(String p_name) {
 		this.p_name = p_name;
+	}
+	public String getEmp_id() {
+		return emp_id;
+	}
+	public void setEmp_id(String emp_id) {
+		this.emp_id = emp_id;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	public String getPos() {
+		return pos;
+	}
+	public void setPos(String pos) {
+		this.pos = pos;
 	}
 	public String getModule() {
 		return module;
@@ -31,8 +52,9 @@ public class EmpProj {
 	}
 	@Override
 	public String toString() {
-		return "EmpProj [p_name=" + p_name + ", module=" + module + ", p_status=" + p_status + ", m_status=" + m_status
-				+ "]";
+		return "EmpProj [p_name=" + p_name + ", emp_id=" + emp_id + ", emp_name=" + emp_name + ", pos=" + pos
+				+ ", module=" + module + ", p_status=" + p_status + ", m_status=" + m_status + "]";
 	}
+	
 	
 }

@@ -179,4 +179,26 @@ public class LoginDao {
 		}
 		return emp_details;
 	}
+	
+public static void delete_in_login_table(String e_id) {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+			
+			sql="update login_table set view_flag=0 where email = ?";
+			
+			PreparedStatement stmt=con.prepareStatement(sql);
+			
+			stmt.setString(1,e_id);
+			
+			stmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

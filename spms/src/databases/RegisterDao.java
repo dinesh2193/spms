@@ -133,20 +133,21 @@ public static void insert_to_photo_table(String email) {
 		
 	}
 	
-public static void insert_to_hierarchy_table(String email,String pos,String par) {
+public static void insert_to_hierarchy_table(String email,String pos,String par,String name) {
 	
 	try {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		
 		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 		
-		sql="insert into hierarchy_table values (?,?,?)";
+		sql="insert into hierarchy_table values (?,?,?,?,1)";
 		
 		PreparedStatement stmt=con.prepareStatement(sql);
 		
 		stmt.setString(1,email);
 		stmt.setString(2,pos);
-		stmt.setString(3,par);
+		stmt.setString(3,name);
+		stmt.setString(4,par);
 		stmt.executeUpdate();
 		
 		stmt.close();

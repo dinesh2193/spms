@@ -1,8 +1,19 @@
+<%@page import="objects.EmpPar"%>
+<%@page import="databases.EmpDetailsDao"%>
+<%@page import="objects.EmpDetails"%>
+<%@page import="databases.ProjectDetailsDao"%>
+<%@page import="objects.EmpProj"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+ <%ArrayList<String> names = EmpDetailsDao.get_all_downline((String)session.getAttribute("emp_email"));
+ names.add((String)session.getAttribute("emp_email"));
+ %>
+ 
+ 
+ <%EmpDetails emp_details = (EmpDetails)session.getAttribute("emp_details");%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -35,41 +46,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<table class="table" id="mytable" style="width:100%">
 							<thead>
 								<tr>
-								  <th>#</th>
-								  <th>First Name</th>
-								  <th>Last Name</th>
-								  <th>Username</th>
+								 <th>S.no</th>
+									<th>Project Name</th>
+									<th>Employee ID</th>
+									<th>Employee</th>
+									<th>Position</th>
+									<th>Module</th>
+									<th>Module status</th>
+									<th>Project status</th>
 								</tr>
 							</thead>
 							<tbody>
-							<%for(int i=0;i<50;i++){ %>
+								<%for(int i=0;i<names.size();i++){
+								System.out.print("names "+names.get(i));
+								ArrayList<EmpProj> proj=ProjectDetailsDao.get_pastprojects_from_emp_project_table(names.get(i));
+								for(int j=0;j<proj.size();j++){
+								EmpProj obj=proj.get(j);
+								 %>
 								<tr>
-								  <th scope="row">1</th>
-								  <td>Mark</td>
-								  <td>Otto</td>
-								  <td>@mdo</td>
+		 						<td><%=i+j+1 %></td>
+								 <td><%=obj.getP_name() %></td>
+								 <td><%=obj.getEmp_id() %></td>
+								 <td><%=obj.getEmp_name() %></td>
+								 <td><%=obj.getPos()%></td>
+								 <td><%=obj.getModule() %></td>
+								 <td><%=obj.getM_status() %></td>
+								 <td><%=obj.getP_status()%></td>
 								</tr>
-								<tr>
-								  <th scope="row">2</th>
-								  <td>Jacob</td>
-								  <td>Thornton</td>
-								  <td>@fat</td>
-								</tr>
-								<tr>
-								  <th scope="row">3</th>
-								  <td>Larry</td>
-								  <td>the Bird</td>
-								  <td>@twitter</td>
-								</tr><%} %>
+								<%}} %>
 							</tbody>
-							<tfoot>
-           					 <tr>
-								  <th>#</th>
-								  <th>First Name</th>
-								  <th>Last Name</th>
-								  <th>Username</th>
-							</tr>
-        				</tfoot>
 						</table>
 					<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 					<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

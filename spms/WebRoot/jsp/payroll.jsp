@@ -1,14 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
-<%@ page language="java" import="java.sql.Timestamp" %>
-<%@ page language="java" import="java.text.SimpleDateFormat" %>
-<%@ page language="java" import="java.text.ParseException" %>
-<%@ page language="java" import="java.util.Date" %>
-<%@ page language="java" import="java.io.IOException" %>
-<%@ page language="java" import="java.sql.PreparedStatement" %>
-<%@ page language="java" import="java.sql.ResultSet" %>
-<%@ page language="java" import="java.sql.Connection" %>
-<%@ page language="java" import="java.sql.DriverManager" %>
-
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>TEXAS EMPLOYEE PAGE</title>
+    <title>My JSP 'payroll.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -29,23 +19,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="css/style1.css">
+
+  <link rel="stylesheet" type="text/css" href="css/style1.css">
 	<link rel="stylesheet" type="text/css" href="css/style2.css">
 
 	<style>
-	div.polaroid 
-{
-  width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-	 .bd
- {
-	background-image:url("images/pic9.jpeg");
-	background-position:top left;
-	  
- }
-	
 	.tbm
 	{
 	 position:absolute;
@@ -242,19 +220,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   
-  <body class="bd">
-  <form action="Attendance" method="post">
+  <body>
+  <!-- <form action="Attendance" method="post">
     <div class="blue-square-container">
 	    <input type="submit" class="button1" id="MyBtn" value="check in" >
 </form>
-	    
+	    -->
 	<!-- <input type="button" class="button1" value="check in" onclick="Worktime.checkin()" >-->
 	
 	 <!-- <button id="heyy" class="button2">view attendance</button> -->
-	  <form action="Attendance1" method="post">
+	 <!--  <form action="Attendance1" method="post">
 	<input type="submit" class="button3" id="B" value="check out"  >
 	</form>
-	
+	-->
 	<!-- <button id="B" class="button3">check out</button>-->
 	
 	  </div>
@@ -264,52 +242,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="tbl">
 								<thead id="hd">
 									<tr>
-									  <th>#</th>
-									  <th>Date</th>
-									  <th>Check in time</th>
-									  <th>Check out time</th>
-									  <th>Hours</th>
+									  <th>Payroll</th>
 									</tr>
 								</thead>
 								<tbody id="bd">
-								 <%
-								 try{
-								    ResultSet rs=(ResultSet)request.getAttribute("Result_att");
-								    String lea,ent;
-								    int count=1;
-								    while(rs.next())
-									{
-										if(rs.getString(7)=="1")
-										ent="PM";
-										else
-										ent="AM";
-									
-										if(rs.getString(8)=="1")
-										lea="PM";
-										else
-										lea="AM";
-								 %>
-								<tr>
-								 <td><%=count%></td>
-								 <td><%=rs.getString(9)+"/"+rs.getString(10)+"/"+rs.getString(11)%></td>
-								 <td><%=rs.getString(1)+":"+rs.getString(2)+":"+rs.getString(3)+" "+ent %></td>
-								 <td><%=rs.getString(4)+":"+rs.getString(5)+":"+rs.getString(6)+" "+lea %></td>
-								 <td><%=rs.getString(12)%></td>
-								</tr>
 								<%
-								count++; }}
+								try
+								{
+									Double pay=(Double)request.getAttribute("Pay");
+								
+								%>					
+								<tr>
+								 <td><%=pay %></td>
+								</tr>
+								<% 
+								}
 								catch(Exception e)
 								{
-										System.out.println("in attendance view "+ e);
-								} %>
-								
+									System.out.println("in payroll jsp "+ e);
+								}
+								%>
 								<!-- <tr>
-								 <td>1</td>
-								 <td>10/10/2018</td>
-								 <td>10 AM</td>
-								 <td>5 PM</td>
-								</tr>
-								<tr>
 								 <td>1</td>
 								 <td>10/10/2018</td>
 								 <td>11 AM</td>
@@ -462,11 +415,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	     						</tbody>
 							<tfoot>
 	            <tr>
-	                <th>#</th>
-	                <th>Date</th>
-				    <th>Check in time</th>
-					<th>Check out time</th>	
-					<th>Hours</th>			
+	                <th>Payroll</th>				
 	            </tr>
 	        </tfoot>
 								</div>
@@ -478,7 +427,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="myModal" class="modal">
 	
 	  <!-- Modal content -->
-	  <div class="modal-content polaroid">
+	  <div class="modal-content">
 	    <span class="close">&times;</span>
 	    <span>Done check in</span>
 	  </div>
@@ -489,7 +438,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="mine" class="modal">
 	
 	  <!-- Modal content -->
-	  <div class="modal-content polaroid">
+	  <div class="modal-content">
 	    <span class="close1">&times;</span>
 	    <span>Done check out</span>
 	  </div>
@@ -497,12 +446,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</div>
 	<span class="text1">From</span><span class="text2">To</span>
-	<form action="Dates" method="post">
+	<form action="Payroll" method="post">
 	
 	<input class="inp" name="from" type="date" ></input>
 	
 	<input class="inp1" name="to" type="date" ></input>
-	<input id="heyy" type="submit" class="button2" value="view attendance">
+	<input id="heyy" type="submit" class="button2" value="view payroll">
 	</form>
 				
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -520,7 +469,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	// Get the button that opens the modal
 	var btn = document.getElementById("myBtn");
 	
-	// Get the <span> element that closes the mo dal
+	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	
 	
@@ -576,7 +525,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	} );*/
 	
 	<%
-	if(request.getAttribute("viewattendance")=="true")
+	if(request.getAttribute("payroll")=="true")
 	{
 	%>
 	    document.getElementById("erase").style.display="block";

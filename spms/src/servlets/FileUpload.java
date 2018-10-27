@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import databases.ProjectDetailsDao;
 import databases.UploadfileDao;
 import databases.UploadphotoDao;
 @WebServlet("/fileupload")
@@ -74,17 +75,30 @@ public class FileUpload extends HttpServlet {
 	                    saveFile.createNewFile();
 	                    item.write(saveFile); 
 	                    
+	                    String emp_id = (String)session.getAttribute("emp_email");
 	                    
-	                    if(UploadfileDao.insert_file(project_name,fileName)>=1)
+	                   /* if(!ProjectDetailsDao.Check_pro_in_emp_project_table(project_name,emp_id))
 	                    {
-	                    	System.out.println("uploaded");
-	                    	
+	                    	System.out.println("hi2");
+	                    	 request.setAttribute("project_update", "false");
+	                     	RequestDispatcher rd = request.getRequestDispatcher("jsp/fileupload.jsp");
+	                 		
+	                 		rd.forward(request, response);
+	                    } 
+	                    else */
+	                    {System.out.println("hi");
+	                    	if(UploadfileDao.insert_file(project_name,fileName,emp_id)>=1)
+		                    {
+		                    	System.out.println("uploaded");
+		                    	
+		                    }
+		                    else
+		                    {
+		                    	System.out.println(" not uploaded");
+		                    	
+		                    }
 	                    }
-	                    else
-	                    {
-	                    	System.out.println(" not uploaded");
-	                    	
-	                    }
+	                    
 	                    
 
 	                } catch (Exception e) {

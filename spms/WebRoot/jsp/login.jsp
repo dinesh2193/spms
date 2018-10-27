@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   									<option value="software_employee">Software Employee</option>
   									<option value="team_leader">Team Leader</option>
   									<option value="project_manager">Project Manager</option>
-  									<option value="admin">Admin</option>
+  									<option value="administrator">Admin</option>
 								 </select>
                               </div>
                               <div class="btnn">

@@ -5,11 +5,12 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%ArrayList<String> names = EmpDetailsDao.get_all_downline((String)session.getAttribute("em[p_email"));
+<%ArrayList<String> names = EmpDetailsDao.get_all_downline((String)session.getAttribute("emp_email"));
 	
 ArrayList<EmpDetails> det = EmpDetailsDao.get_all_downline_details(names);
 
  %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -27,7 +28,11 @@ ArrayList<EmpDetails> det = EmpDetailsDao.get_all_downline_details(names);
 	
 
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-
+<script type="text/javascript">
+ <%if(request.getAttribute("remove")=="true"){%>
+ alert("deleted successfully");
+ <%}%>
+</script>
 
 
 <!--webfonts-->
@@ -52,7 +57,7 @@ ArrayList<EmpDetails> det = EmpDetailsDao.get_all_downline_details(names);
 					<div>&nbsp;</div>
 					
 					<div id="table2" style="display:none;width:100%">
-					<h2 style="color:red;">DataTable</h2>
+					<h2 style="color:#000099;">Employee Downline</h2>
 	<table id="mytable1" class="display">
 							<thead>
                     <tr>
@@ -75,96 +80,24 @@ ArrayList<EmpDetails> det = EmpDetailsDao.get_all_downline_details(names);
                     </tr>
                   </tfoot>
                   <tbody>
+                  <%for(int i=0;i<det.size();i++){
+                  EmpDetails ov = det.get(i); %>
                     <tr>
-                      
-                   <td>Tiger Nixon</td>
-                      <td>Admin</td>
-                      <td>Male</td>
-                      <td>yoyo</td>
-                      <td>847847983798</td>
-                      <td>NA</td>
-                     
-                    </tr>
-                    <tr>
-                     
-                      <td>Garrett Winters</td>
-                      <td>Project Manager</td>
-                      <td>Female</td>
-                      <td>ooiuoi</td>
-                      <td>28374982734</td>
-                      <td>Garrett Winters</td>
-                     
-                    </tr>
-                    <tr>
-                      
-                      <td>Ashton Cox</td>
-                      <td>Team Leader</td>
-                      <td>Female</td>
-                      <td>kjdshf</td>
-                      <td>398493</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                    
-                      <td>Cedric Kelly</td>
-                      <td>Software Engineer</td>
-                      <td>Male</td>
-                      <td>sddf</td>
-                      <td>201435435</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                    
-                      <td>Airi Satou</td>
-                      <td>Software Engineer </td>
-                      <td>Male</td>
-                      <td>dsdsd</td>
-                      <td>2984793475</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                      
-                      <td>Brielle Williamson</td>
-                      <td>Project Manager</td>
-                      <td>Male</td>
-                      <td>sdffgd</td>
-                      <td>20456466</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                    
-                      <td>Herrod Chandler</td>
-                      <td>Team Leader</td>
-                      <td>Male</td>
-                      <td>sdfsdf</td>
-                      <td>2012454645</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                      
-                      <td>Rhona Davidson</td>
-                      <td>Software Engineer</td>
-                      <td>Female</td>
-                      <td>sddfdfss</td>
-                      <td>9384934795</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                    
-                      <td>Colleen Hurst</td>
-                      <td>Software Engineer</td>
-                      <td>Male</td>
-                      <td>sddfsdfsd</td>
-                      <td>2009456456</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
+                      <td><%=ov.getFname()+" "+ov.getLname() %></td>
+                     <td><%=ov.getPosition() %></td>
+                     <td><%=ov.getGender() %></td>
+                     <td><%=ov.getEmail() %></td>
+                     <td><%=ov.getMobile() %></td>
+                     <td><%=EmpDetailsDao.get_upline(ov.getEmail()) %></td>
+                    </tr><%} %>
+                   
             
                   </tbody>
                   </table>
                   </div>
 					<div id="table1" style="display:none;width:100%">
-					<h2 style="color:red;">DataTable</h2>
-
+					<h2 style="color:#000099;">Employee Downline</h2>
+<form action="remove" method="post">
 	<table id="mytable" class="display">
 					  <thead>
                     <tr>
@@ -180,97 +113,30 @@ ArrayList<EmpDetails> det = EmpDetailsDao.get_all_downline_details(names);
                   </thead>
                  <!--  <button id="button" class="poi"> x</button>-->
                   <tbody>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                   <td>Tiger Nixon</td>
-                      <td>Admin</td>
-                      <td>Male</td>
-                      <td>yoyo</td>
-                      <td>847847983798</td>
-                      <td>NA</td>
-                     
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Garrett Winters</td>
-                      <td>Project Manager</td>
-                      <td>Female</td>
-                      <td>ooiuoi</td>
-                      <td>28374982734</td>
-                      <td>Garrett Winters</td>
-                     
-                    </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Ashton Cox</td>
-                      <td>Team Leader</td>
-                      <td>Female</td>
-                      <td>kjdshf</td>
-                      <td>398493</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Cedric Kelly</td>
-                      <td>Software Engineer</td>
-                      <td>Male</td>
-                      <td>sddf</td>
-                      <td>201435435</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Airi Satou</td>
-                      <td>Software Engineer </td>
-                      <td>Male</td>
-                      <td>dsdsd</td>
-                      <td>2984793475</td>
-                      <td>Garrett Winters</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Brielle Williamson</td>
-                      <td>Project Manager</td>
-                      <td>Male</td>
-                      <td>sdffgd</td>
-                      <td>20456466</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Herrod Chandler</td>
-                      <td>Team Leader</td>
-                      <td>Male</td>
-                      <td>sdfsdf</td>
-                      <td>2012454645</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Rhona Davidson</td>
-                      <td>Software Engineer</td>
-                      <td>Female</td>
-                      <td>sddfdfss</td>
-                      <td>9384934795</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
-                    <tr>
-                      <td><input type="checkbox" ></td>
-                      <td>Colleen Hurst</td>
-                      <td>Software Engineer</td>
-                      <td>Male</td>
-                      <td>sddfsdfsd</td>
-                      <td>2009456456</td>
-                      <td>Brielle Williamson</td>
-                     </tr>
+                   
                     
+                       <%for(int i=0;i<det.size();i++){
+                  EmpDetails ov = det.get(i); %>
+                    <tr>
+                     <td><input type="checkbox" name="checkedRows" value="<%=ov.getEmail() %>"></td>
+                      <td><%=ov.getFname()+" "+ov.getLname() %></td>
+                     <td><%=ov.getPosition() %></td>
+                     <td><%=ov.getGender() %></td>
+                     <td><%=ov.getEmail() %></td>
+                     <td><%=ov.getMobile() %></td>
+                     <td><%=EmpDetailsDao.get_upline(ov.getEmail()) %></td>
+                    </tr><%} %>
+                     
                   
                   </tbody>
 						</table>
 				<!--  <INPUT type="button" value="Delete Row" onclick="deleteRow("mytable")" />-->
 				<!--  <input type="button" id="btnDelete" value="Delete Selected Rows" onclick="removeSampleRow('mytable')">-->
-					 <button id="btnDelete" onclick="deleteRows();">Delete Row</button>	
+					 <!--  <button id="btnDelete" onclick="deleteRows();">Delete Row</button>	-->
+						<input class="r" type="submit" value="Delete Rows" onclick="deleteRows();">
+						</form>
 						</div>
+						
 						   <div id="three-col" style="display:none;width:100%">
     <div class="col1">
         <label for="Name"></label> 
@@ -324,7 +190,7 @@ var table = $('#mytable').DataTable();
 					  document.getElementById("three-col").style.display="none";
 					}
 		
-						 function getSelectedRows() {
+				/*		 function getSelectedRows() {
 					            var selectedRows = []
 					            $('input[type=checkbox]').each(function () {
 					                if ($(this).is(":checked")) {
@@ -338,7 +204,7 @@ var table = $('#mytable').DataTable();
 					            for (var i = 0; i < selectedRows.length; i++) {
 					                $(selectedRows[i]).parent().parent().remove();
 					            }
-					        }
+					        }*/
 					</script>
 					
 </body>

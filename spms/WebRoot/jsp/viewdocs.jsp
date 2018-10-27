@@ -1,10 +1,11 @@
+<%@page import="databases.ProjectDetailsDao"%>
 <%@page import="methods.ProjectDetails"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%ArrayList<String> l = ProjectDetails.get_project_details("spms"); %>
+<%ArrayList<String> proj = ProjectDetailsDao.get_project_from_emp_project_table((String)session.getAttribute("emp_email")); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -47,17 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  <div class="tbl-content">
 	    <table cellpadding="0" cellspacing="0" border="0">
 	      <tbody>
+	      	<%for(int i=0;i<proj.size();i++)
+	      	{ArrayList<String> docs = ProjectDetailsDao.get_from_project_table(proj.get(i),(String)session.getAttribute("emp_email"));
+	      	%>
 	        <tr>
-	          <td>AAC</td>
-	          <td>AUSTRALIAN COMPANY </td>
+	          <th id="proj-name" rowspan="<%=docs.size()%>"><%=proj.get(i) %></th>
+	          <td><a href="<%="projects/"+docs.get(0)%>" target="_blank" ><%=docs.get(0) %></a></td>
 	        </tr>
+	       <%for(int j=1;j<docs.size();j++){%>
 	        <tr>
-	          <th id="proj-name" rowspan="2">AAD</th>
-	          <td>AUSENCO</td>
+	          <td><a href="<%="projects/"+docs.get(j)%>" target="_blank" ><%=docs.get(j) %></a></td>
 	        </tr>
-	        <tr>
-	          <td>AUSENCO1</td>
-	        </tr>
+	        <%}} %>
 	      </tbody>
 	    </table>
 	  </div>
@@ -65,5 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
     <script src="js/viewdocs.js"></script>
+    <br>
+    <br>
   </body>
 </html>

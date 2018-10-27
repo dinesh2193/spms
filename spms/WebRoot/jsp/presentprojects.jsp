@@ -1,3 +1,5 @@
+<%@page import="objects.EmpPar"%>
+<%@page import="databases.EmpDetailsDao"%>
 <%@page import="objects.EmpDetails"%>
 <%@page import="databases.ProjectDetailsDao"%>
 <%@page import="objects.EmpProj"%>
@@ -12,6 +14,10 @@ ArrayList<EmployeeObj> l=RegisterDao.get_empdetails_table();
  %> --%>
  
  
+ <%ArrayList<String> names = EmpDetailsDao.get_all_downline((String)session.getAttribute("emp_email"));
+ names.add((String)session.getAttribute("emp_email"));
+ %>
+ 
  
  <%EmpDetails emp_details = (EmpDetails)session.getAttribute("emp_details");%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -22,7 +28,7 @@ ArrayList<EmployeeObj> l=RegisterDao.get_empdetails_table();
 	<link rel="stylesheet" type="text/css" href="css/style1.css">
 	<link rel="stylesheet" type="text/css" href="css/style2.css">
 	<link rel="stylesheet" type="text/css" href="css/pp.css">
-	<script src="js/pp1.js"></script>
+	<script src="js/pp.js"></script>
 	<%-- <%EmpDetails emp_details = (EmpDetails)session.getAttribute("emp_details");%> --%>
 <style>
 
@@ -74,15 +80,28 @@ background-color:black;}
 </style>
 
 
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js "></script>
-
+<script type="text/javascript">
+<%if(request.getAttribute("project_insert")=="false"){%>
+alert("project name already exists");
+<%} else if(request.getAttribute("project_updated")=="true"){ %>
+alert("updated successfully");
+<%}else if(request.getAttribute("project_updated")=="false"){ %>
+alert("Error in updating");
+<%}
+else if(request.getAttribute("module_updated")=="true"){ %>
+alert("module updated successfully");
+<%}else if(request.getAttribute("module_updated")=="false"){ %>
+alert("Error in updating module");
+<%}
+%>
+</script>
 <script type="text/javascript">
 
  $(function(){
@@ -98,164 +117,111 @@ $(document).ready(function() {
     $('#example').DataTable();
 } );
  </script>
-  
+ </head>
   <body>
     <h1>Present Projects</h1>
+    <form method="post" action="update">
+    <div id="tbl">
 	<div id="erase" class="tbm" class="blue-square-container">
 	<table id="example" class="table table-striped table-bordered" style="width:100%">
 	
-	<div id="tbl">
 								<thead id="hd">
 									<tr>
 									<th>S.no</th>
-									
 									<th>Project Name</th>
 									<th>Employee ID</th>
 									<th>Employee</th>
 									<th>Position</th>
 									<th>Module</th>
-									<th>Status</th>
+									<th>Module status</th>
+									<th>Project status</th>
 									</tr>
 								</thead>
 								<tbody id="bd">
-								<%ArrayList<EmpProj> data = ProjectDetailsDao.get_from_emp_project_table((String)session.getAttribute("emp_email"));%>
-								<%
-								for(int j=0;j<) %>
-								<%for(int i=0;i<data.size();i++){EmpProj obj = data.get(i); %>
+								<%for(int i=0;i<names.size();i++){
+								System.out.print("names "+names.get(i));
+								ArrayList<EmpProj> proj=ProjectDetailsDao.get_from_emp_project_table(names.get(i));
+								for(int j=0;j<proj.size();j++){
+								EmpProj obj=proj.get(j);
+								 %>
 								<tr>
-		 						<td><%=i+1%></td>
+		 						<td><%=i+j+1 %></td>
 								 <td><%=obj.getP_name() %></td>
-								 <td>1234</td>
-								 <td>dileep</td>
-								 <td>team lead</td>
-								 <td><%=obj.getModule()%></td>
-								 <td><%=obj.getM_status() %></td>
+								 <td><%=obj.getEmp_id() %></td>
+								 <td><%=obj.getEmp_name() %></td>
+								 <td><%=obj.getPos()%></td>
+								 <td><%=obj.getModule() %></td>
+								 <td><input type="text" name="m<%=obj.getEmp_id()+obj.getP_name() %>" value="<%=obj.getM_status()%>" <%if(!obj.getEmp_id().equals((String)session.getAttribute("emp_email"))){%>readonly="readonly"<%}%>></td>
+								 <td><select name="p<%=obj.getEmp_id()+obj.getP_name() %>" style="min-width: 30%" <%if(obj.getPos().equals("software_employee")){%>readonly="readonly"<%}%>>
+ 					 				<option value="default" >--Select--</option>
+ 								 	<option value="yes" <%if(obj.getP_status().equals("yes")){%>selected<%}%>>Completed</option>
+ 					 				<option value="no" <%if(obj.getP_status().equals("no")){%>selected<%}%>>Incomplete</option>
+ 									</select></td>
 								</tr>
-								<%} %>
-	<!-- 							<tr>
-								 <td>1</td>
-								 <td>bhaskar</td>
-								 <td>bhaskar@gmail.com</td>
-								 <td>9490452155</td>
-								 <td>web dev</td>
-								<td>
-									
-									
-	  <input type="radio" name="rb1" id="rb1"></input>
-	  <label for="rb1">Approve</label>
-	  <input type="radio" name="rb1" id="rb2"></input>
-	  <label for="rb2">Deny</label>
-								</td>
-								</tr>
-								<tr>
-								 <td>1</td>
-								 <td>bhaskar</td>
-								 <td>bhaskar@gmail.com</td>
-								 <td>9490452155</td>
-								 <td>web dev</td>
-								<td>
-									
-									
-	  <input type="radio" name="rb1" id="rb1"></input>
-	  <label for="rb1">Approve</label>
-	  <input type="radio" name="rb1" id="rb2"></input>
-	  <label for="rb2">Deny</label>
-								</td>
-								</tr>
-								<tr>
-								 <td>1</td>
-								 <td>bhaskar</td>
-								 <td>bhaskar@gmail.com</td>
-								 <td>9490452155</td>
-								 <td>web dev</td>
-								<td>
-									
-									
-	  <input type="radio" name="rb1" id="rb1"></input>
-	  <label for="rb1">Approve</label>
-	  <input type="radio" name="rb1" id="rb2"></input>
-	  <label for="rb2">Deny</label>
-								</td>
-								</tr>
-								<tr>
-								 <td>1</td>
-								 <td>bhaskar</td>
-								 <td>bhaskar@gmail.com</td>
-								 <td>9490452155</td>
-								 <td>web dev</td>
-								<td>
-									
-									
-	  <input type="radio" name="rb1" id="rb1"></input>
-	  <label for="rb1">Approve</label>
-	  <input type="radio" name="rb1" id="rb2"></input>
-	  <label for="rb2">Deny</label>
-								</td>
-								</tr>
-							
-								<tr>
-								 <td>1</td>
-								 <td>bhaskar</td>
-								 <td>bhaskar@gmail.com</td>
-								 <td>9490452155</td>
-								 <td>web dev</td>
-								<td>
-									
-									
-	  <input type="radio" name="rb1" id="rb1"></input>
-	  <label for="rb1">Approve</label>
-	  <input type="radio" name="rb1" id="rb2"></input>
-	  <label for="rb2">Deny</label>
-								</td> -->
-								
+								<%}} %>
 								 </tbody>
+    </table>
+    <input type="submit" value="Submit" class="savebtn">
+    </div>
+	
 	</div>
-	</table>
-	</div>
-<%-- 	<%if(emp_details.getPosition().equals("project_manager")){ %> --%>
+	
+	</form>
+	
+	<%if(emp_details.getPosition().equals("project_manager")){ %>
 	<div class="pro_man">
-					<div>
- 					 <button onclick="myFunction1()" class="button1">Add project</button>
+					
+ 					 <button  class="button1" onclick="myFunction1()">Add project</button>
+ 					 <form action="addproject" method="post">
  					 <div id="sel" class="dp1">
  					 <select name="t_id" style="min-width: 30%" onchange="addp()">
  					 <option value="default" >--select teamlead--</option>
- 					 <option value="value1" >teamlead 1</option>
- 					 <option value="value2" >teamlead 2</option>
+ 					 <%ArrayList<EmpPar> tl = EmpDetailsDao.get_downline((String)session.getAttribute("emp_email")) ;
+ 					 for(int k=0;k<tl.size();k++){
+ 					 EmpPar tld =  tl.get(k);
+ 					 %>
+ 					 <option value="<%=tld.getE_name()%>" ><%=tld.getP_name() %></option>
+ 					 <%}%>
  					 </select>
   					 </div>
-					</div>
-						<div id="pro">
-							<form action="">
+					<div id="pro">
+							
   							Project Name:
- 							<input type="text" name="p_name"  placeholder=" Enter Project Name" style="min-width: 40%">
+ 							<input type="text" name="p_name"  id="p_name" placeholder=" Enter Project Name" style="min-width: 40%">
   							<br><br>
- 							<input class="savebtn" type="submit" value="Submit">
+ 							<input  type="submit" class="savebtn" value="Submit" onclick="return validate()">
  							<input type="button" value="cancel" onclick="cncl1()" class="cnlbtn">
-							</form>	 
 						</div>
-					</div><%-- <%}%> --%>
-<%-- 	<%if(emp_details.getPosition().equals("team_leader")){ %> --%>
+					</form>	
+					</div> 
+					 <%}%> 
+<%if(emp_details.getPosition().equals("team_leader")){ %> 
 	<div class="team_lead">
-					<div class="dropdown">
  					 <button onclick="myFunction()" class="dropbtn">Assign Modules</button>
+ 					 <form action="assignmodules" method ="post">
  					 <div id="sel1" class="dp2">
  					 <select name="p_id" style="min-width: 30%" onchange="module()">
  					 <option value="default" >--select project--</option>
- 					 <option value="value1" >project1</option>
- 					 <option value="value2" >project2</option>
+ 					 <%ArrayList<String> p = ProjectDetailsDao.get_project_from_emp_project_table((String)session.getAttribute("emp_email"));
+ 					 for(int k=0;k<p.size();k++){ %>
+ 					 <option value="<%=p.get(k)%>" ><%=p.get(k)%></option>
+ 					 <%} %>
  					 </select>
   					 </div>
-					</div>
 						<div id="mod">
-							<form action="">
-  							Employee name:
- 							<input type="text" name="emp1" placeholder=" Enter Module" style="min-width: 40%">
+							<%ArrayList<EmpPar> sed = EmpDetailsDao.get_downline((String)session.getAttribute("emp_email"));
+							for(int k=0;k<sed.size();k++){
+							EmpPar se = sed.get(k);
+							 %>
+  							<%=se.getP_name()+":"%>
+ 							<input type="text" name="<%=se.getE_name() %>" placeholder=" Enter Module" style="min-width: 40%">
   							<br><br>
+  							<%} %>
  							<input class="savebtn" type="submit" value="Submit">
  							<input type="button" value="cancel" onclick="cncl()" class="cnlbtn">
-							</form>
 						</div>
+						</form>
 					</div>
-	<%-- <%}%> --%>
+	 <%}%>
   </body>
 </html>

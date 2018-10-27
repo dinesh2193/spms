@@ -7,18 +7,19 @@ import java.sql.ResultSet;
 
 public class UploadfileDao {
 	static String sql;
-	public static int insert_file(String project,String file) {
+	public static int insert_file(String project,String file,String emp_id) {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 			
-			sql="insert into project_table values (?,?)";
+			sql="insert into project_table values (?,?,?)";
 			
 			PreparedStatement stmt=con.prepareStatement(sql);
 			
 			stmt.setString(1,project);
 			stmt.setString(2,file);
+			stmt.setString(3,emp_id);
 			
 			return stmt.executeUpdate();
 		} catch (Exception e) {
