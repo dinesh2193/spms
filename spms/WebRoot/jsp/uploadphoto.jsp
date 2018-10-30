@@ -94,7 +94,21 @@ if ( Extension == "png"|| Extension == "jpeg" || Extension == "jpg")
 						//file size verified
 						if(fuData.files[0].size<3000000)
 						{
-							return true;
+							if(fuData.files[0].getWidth()<=1500)                                //change starts here
+							{
+								if(fuData.files[0].getHeight()<=1500)
+									return true;
+									else
+									{
+										alert("ensure height to be less than 1500 pixels ");
+										return false;
+									}
+							}
+							else
+							 {
+									alert("ensure width to be less than 1500 pixels ");
+									return false;
+							 }				
 						}
 						else
 						{

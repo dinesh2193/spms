@@ -81,7 +81,7 @@ public class LoginDao {
 			
 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 			
-			sql="select * from login_table where email = ? and pswd = ?";
+			sql="select * from login_table where email = ? and pswd = ? and view_flag=1";
 			
 			PreparedStatement stmt=con.prepareStatement(sql);
 			
@@ -116,7 +116,7 @@ public class LoginDao {
 			
 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 			
-			sql="select * from empdetails_table where email = ?";
+			sql="select * from empdetails_table where email = ? and view_flag=1";
 			
 			PreparedStatement stmt=con.prepareStatement(sql);
 			
@@ -134,7 +134,7 @@ public class LoginDao {
 				emp_details.setEmail(rs.getString(3));
 				emp_details.setMobile(rs.getString(4));
 				emp_details.setDob(rs.getString(5));
-				System.out.println(emp_details.getDob());
+				//System.out.println(emp_details.getDob());
 				if(emp_details.getDob()!=null){
 				emp_details.setDob(DateConvert.convert_date("yyyy-mm-dd", "dd-mm-yyyy",emp_details.getDob()));
 				

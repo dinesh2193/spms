@@ -1,3 +1,4 @@
+<%@page import="databases.UploadphotoDao"%>
 <%@page import="objects.EmpDetails"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
@@ -93,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </a>
                 <ul class="treeview-menu">
                   <li><a href="jsp/fileupload.jsp" target="myframe"><i class="fa fa-angle-right"></i>Upload Documents</a></li>
-                  <li><a href="media.html"><i class="fa fa-angle-right"></i>View documents</a></li>
+                  <li><a href="jsp/viewdocs.jsp" target="myframe"><i class="fa fa-angle-right"></i>View documents</a></li>
                 </ul>
               </li>
 			    <li class="treeview">
@@ -107,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="grids.html"><i class="fa fa-angle-right"></i>Running Projects</a></li>
+                  <li><a href="jsp/presentprojects.jsp" target="myframe"><i class="fa fa-angle-right"></i>Running Projects</a></li>
                   <li><a href="jsp/pastprojects.jsp" target="myframe"><i class="fa fa-angle-right"></i> Past Projects</a></li>
                 </ul>
               </li>
@@ -116,6 +117,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <a href="#">
                 <i class="fa fa-calendar-check-o"></i><span>Schedule</span></a>
                </li>
+               <%if(!emp_details.getPosition().equals("software_employee")){ %>
+			    <li class="treeview" >
+                <a href="jsp/downline.jsp" target="myframe">
+                <i class="fa fa-users"></i><span>Downlines</span></a>
+               </li><%}%>
                <%if(emp_details.getPosition().equals("administrator")){ %>
 			    <li class="treeview" >
                 <a href="jsp/registered.jsp" target="myframe">
@@ -138,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li class="dropdown profile_details_drop">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 								<div class="profile_img">	
-									<span class="prfil-img"><img src="images/2.jpg" alt=""> </span> 
+									<span class="prfil-img"><img src="<%="images/"+UploadphotoDao.get_photo((String)session.getAttribute("emp_email")) %>" width="50" height="50" alt=""> </span> 
 									<div class="user-name">
 										<p><%=session.getAttribute("emp_email") %></p>
 										<span><%=emp_details.getPosition()%></span>

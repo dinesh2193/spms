@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 	function hideURLbar(){ window.scrollTo(0,1); } </script>
 	 <script src='js/editprofile.js' type="text/javascript"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Meta tag Keywords -->
 	<!-- css files -->
 	<link rel="stylesheet" href="css/jquery-ui.css"/>
@@ -54,11 +55,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<form action="Editprofile" method="post" >	
 				<div class="w3l-user">
 					<label class="head">First Name<span class="w3l-star"> * </span></label>
-					<input type="text" name="firstname"  required="" value="<%=emp_details.getFname()%>">
+					<input type="text" name="firstname" id="firstname" required="" value="<%=emp_details.getFname()%>">
 				</div>
 				<div class="w3l-user">
 					<label class="head">Last Name<span class="w3l-star"> * </span></label>
-					<input type="text" name="lastname" placeholder="" required="" value="<%=emp_details.getLname()%>">
+					<input type="text" name="lastname" id="lastname" placeholder="" required="" value="<%=emp_details.getLname()%>">
 				</div>
 				<div class="w3l-mail">
 					<label class="head">Email<span class="w3l-star"> * </span></label>
@@ -68,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="w3l-details1">
 					<div class="w3l-num">
 						<label class="head">Contact Number<span class="w3l-star"> * </span></label>
-						<input type="text"  name="mobile" placeholder="" required="" value="<%=emp_details.getMobile()%>">
+						<input type="text"  id="contno" name="mobile" placeholder="" required="" value="<%=emp_details.getMobile()%>">
 					</div>
 					<div class="w3l-date">
 						<label class="head">Date of Birth<span class="w3l-star"> * </span></label>
@@ -79,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="clear"></div>
 				<div class="gender">
 					<label class="head">gender<span class="w3l-star"> * </span></label>	
-						<select class="form-control" name="gender" required="">
+						<select class="form-control" id="gender" name="gender" required="">
 							<option value="Gender">Gender</option>
 							<option value="Male" <%if(emp_details.getGender().equals("Male")){%>selected<%}%>>Male</option>
 							<option value="Female" <%if(emp_details.getGender().equals("Female")){%>selected<%}%>>Female</option>
@@ -93,24 +94,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="w3l-user">
 					<label class="head">Street Address<span class="w3l-star"> * </span></label>
-					<input type="text" name="address" placeholder="" required="" value="<%=emp_details.getAddress()%>">
+					<input type="text" name="address" id="streetaddress" placeholder="" required="" value="<%=emp_details.getAddress()%>">
 				</div>
 				<div class="w3l-num">
 						<label class="head">City<span class="w3l-star"> * </span></label>
-						<input type="text"  name="city" placeholder="" required="" value="<%=emp_details.getCity()%>">
+						<input type="text"  id="city" name="city" placeholder="" required="" value="<%=emp_details.getCity()%>">
 					</div>
 				<div class="w3l-sym">
 						<label class="head">State<span class="w3l-star"> * </span></label>
-						<input type="text" name="state" placeholder="" required="" value="<%=emp_details.getState()%>">
+						<input type="text" id="state" name="state" placeholder="" required="" value="<%=emp_details.getState()%>">
 				</div>
 				<div class="clear"></div>
 				<div class="w3l-num">
 						<label class="head">Postal / Zip Code<span class="w3l-star"> * </span></label>
-						<input type="text"  name="pincode" placeholder="" required="" value="<%=emp_details.getPincode()%>">
+						<input type="text"  id="code" name="pincode" placeholder="" required="" value="<%=emp_details.getPincode()%>">
 					</div>
 				<div class="w3l-sym">
 						<label class="head">Country<span class="w3l-star"> * </span></label>
-						<input type="text" name="country" placeholder="" required="" value="<%=emp_details.getCountry()%>">
+						<input type="text" id="country" name="country" placeholder="" required="" value="<%=emp_details.getCountry()%>">
 				</div>	
 				<!--<div class="w3l-options2">
 				<label class="head">Country<span class="w3l-star"> * </span></label>	
@@ -126,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="clear"></div>
 				<div class="w3l-user">
 					<label class="head">Resume Link<span class="w3l-star"> * </span></label>
-					<input type="text" name="resume" placeholder="" required="" value="<%=emp_details.getResume()%>">
+					<input type="text" name="resume" id="resume" placeholder="" required="" value="<%=emp_details.getResume()%>">
 				</div>
 				<div class="clear"></div>
 				<!--<div class="w3l-lef1">
@@ -152,7 +153,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<textarea></textarea>
 					</div>-->
 					<div class="btn">
-						<input type="submit" onclick="validate_editprofile()" name="submit" value="Submit"/>
+						<input type="submit" onclick="return validate_editprofile()" name="submit" value="Submit"/>
 					</div>
 				</div>
 				<div class="clear"></div>

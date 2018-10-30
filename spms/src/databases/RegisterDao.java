@@ -60,7 +60,7 @@ public class RegisterDao {
 			
 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 			
-			sql="insert into login_table values (?,?,?,?)";
+			sql="insert into login_table values (?,?,?,?,1)";
 			
 			PreparedStatement stmt=con.prepareStatement(sql);
 			
@@ -87,7 +87,7 @@ public class RegisterDao {
 			
 			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
 			
-			sql="insert into empdetails_table(f_name,l_name,email,mobile,gender,pos) values (?,?,?,?,?,?)";
+			sql="insert into empdetails_table(f_name,l_name,email,mobile,gender,pos,view_flag) values (?,?,?,?,?,?,1)";
 			
 			PreparedStatement stmt=con.prepareStatement(sql);
 			
@@ -133,6 +133,32 @@ public static void insert_to_photo_table(String email) {
 		
 	}
 	
+public static void insert_to_hierarchy_table(String email,String pos,String par) {
+	
+	try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","dinesh","dinesh");
+		
+		sql="insert into hierarchy_table values (?,?,?)";
+		
+		PreparedStatement stmt=con.prepareStatement(sql);
+		
+		stmt.setString(1,email);
+		stmt.setString(2,pos);
+		stmt.setString(3,par);
+		stmt.executeUpdate();
+		
+		stmt.close();
+		con.close();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+}
+
 	public static void delete_from_reg_table(String email) {
 		
 		try {

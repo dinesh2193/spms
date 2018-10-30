@@ -26,6 +26,23 @@ ArrayList<EmployeeObj> l=RegisterDao.get_empdetails_table();
 <link rel="stylesheet" type="text/css" href="css/style2.css">
 <style>
 
+ 
+.cl{
+    padding:3px;
+    margin: 0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    background:#343a40;
+    color:white;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
 .center-on-page {
   position: absolute;
   top: 50%;
@@ -132,10 +149,6 @@ background-color:black;}
 
  $(function(){
  
-					$('#erase').hide();
-					$('#erase').show(1000);
-					$('#erase1').hide();
-					$('#erase1').show(1000);
  
  $('input[type="radio"]').click(function(){
         var $rad = $(this);
@@ -145,10 +158,20 @@ background-color:black;}
         {
             $rad.prop('checked', false);
             $rad.data('waschecked', false);
+            <%for(int i=0;i<l.size();i++){EmployeeObj o = l.get(i);%>
+            $("#<%=o.getMobile()%>").hide();
+            <%}%>
         }
         else
+        {
             $rad.data('waschecked', true);
-        
+        	<%for(int i=0;i<l.size();i++){EmployeeObj o = l.get(i);%>
+        	if($('input[name="<%=o.getEmail()%>"]:checked').val()=="approve")
+            $('<%="#"+o.getMobile()%>').show();
+            else
+            $('#<%=o.getMobile()%>').hide();
+            <%}%>
+        }
         // remove was checked from other radios
         $rad.siblings('input[type="radio"]').data('waschecked', false);
     });
@@ -156,6 +179,11 @@ background-color:black;}
 
 
 $(document).ready(function() {
+
+					$('#erase').hide();
+					$('#erase').show(1000);
+					$('#erase1').hide();
+					$('#erase1').show(1000);
     $('#example').DataTable();
 } );
  </script>
@@ -180,7 +208,7 @@ $(document).ready(function() {
 	<div id="tbl">
 								<thead id="hd">
 									<tr>
-									  <th>S.no</th>
+									 
 									  <th>Username</th>
 									  <th>EMail Id</th>
 									  <th>Contact</th>
@@ -192,7 +220,7 @@ $(document).ready(function() {
 								<%for(int i=0;i<l.size();i++){
 								EmployeeObj o = l.get(i); %>
 								<tr>
-								 <td><%=(i+1)%></td>
+								 
 								 <td><%=o.getF_name()+o.getL_name() %></td>
 								 <td><%=o.getEmail() %></td>
 								 <td><%=o.getMobile() %></td>
@@ -203,8 +231,18 @@ $(document).ready(function() {
 	  <input type="radio" name="<%=o.getEmail()%>" id="<%=o.getEmail()+"a"%>" value="approve"></input>
 	  <label for="<%=o.getEmail()+"a"%>">Approve</label>
 	  <input type="radio" name="<%=o.getEmail()%>" id="<%=o.getEmail()+"b"%>" value="deny"></input>
-	  <label for="<%=o.getEmail()+"b"%>">Deny</label>
+	  <label for="<%=o.getEmail()+"b"%>">Deny</label><br>
+	  <div id="<%=o.getMobile()%>"  style="display:none" >
+	  <span class="cl">Appoint under : </span>
+	  <select>
+	  <option>op1</option>
+	  <option>op1</option>
+	  <option>op1</option>
+	  </select>
+	  </div>
+	  
 								</td>
+								
 								</tr><%} %>
 	<!-- 							<tr>
 								 <td>1</td>
